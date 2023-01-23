@@ -44,6 +44,7 @@ import androidx.compose.ui.unit.dp
 import com.example.reply.R
 import com.example.reply.data.Email
 import com.example.reply.data.local.LocalAccountsDataProvider
+import com.example.reply.ui.utils.ReplyNavigationType
 
 /**
  * Component that displays a single pane of list of emails
@@ -58,7 +59,7 @@ fun ReplyListOnlyContent(
 
     LazyColumn(modifier = modifier.padding(horizontal = 16.dp)) {
         item {
-            ReplyHomeTopBar(modifier = Modifier.fillMaxWidth())
+                ReplyHomeTopBar(modifier = Modifier.fillMaxWidth())
         }
         items(emails, key = { email -> email.id }) { email ->
             ReplyEmailListItem(
@@ -76,6 +77,7 @@ fun ReplyListOnlyContent(
  */
 @Composable
 fun ReplyListAndDetailContent(
+    navigationType: ReplyNavigationType,
     replyUiState: ReplyUiState,
     onEmailCardPressed: (Email) -> Unit,
     modifier: Modifier = Modifier
@@ -85,7 +87,7 @@ fun ReplyListAndDetailContent(
         LazyColumn(
             modifier = Modifier
                 .weight(1f)
-                .padding(end = 16.dp, top = 20.dp)
+                .padding(start = 16.dp, end = 16.dp, top = 20.dp)
         ) {
             items(emails, key = { email -> email.id }) { email ->
                 ReplyEmailListItem(
@@ -97,6 +99,7 @@ fun ReplyListAndDetailContent(
             }
         }
         ReplyDetailsScreen(
+            navigationType = navigationType,
             replyUiState = replyUiState,
             modifier = Modifier.weight(1f),
             onBackPressed = {}
